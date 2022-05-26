@@ -1,0 +1,389 @@
+# Crear proyecto con Laravel y Jetstring
+
+laravel new livewire --jet
+
+cd livewire 
+
+npm install
+
+npm run dev
+
+npm run watch
+
+php artisan migrate
+
+--------------------------------------------------------------------------------
+
+php artisan make:...
+
+    make:cast         Create a new custom Eloquent cast class  
+    make:channel      Create a new channel class
+    make:component    Create a new view component class        
+    make:command      Create a new Artisan command
+    make:controller   Create a new controller class
+    make:event        Create a new event class
+    make:exception    Create a new custom exception class      
+    make:factory      Create a new model factory
+    make:job          Create a new job class
+    make:listener     Create a new event listener class        
+    make:mail         Create a new email class
+    make:middleware   Create a new middleware class
+    make:model        Create a new Eloquent model class        
+    make:notification Create a new notification class
+    make:observer     Create a new observer class
+    make:policy       Create a new policy class
+    make:provider     Create a new service provider class      
+    make:request      Create a new form request class
+    make:resource     Create a new resource
+    make:rule         Create a new validation rule
+    make:scope        Create a new scope class
+    make:seeder       Create a new seeder class
+    make:test         Create a new test class
+    make:migration    Create a new migration file.
+
+--------------------------------------------------------------------------------
+
+# crear un controlador:
+
+php artisan make:controller NombreController
+
+--------------------------------------------------------------------------------
+
+# Rutas
+
+// simple
+Route::get('/', HomeController::class);
+
+// grupo
+Route::get('cursos', [CursoController::class, 'index']);
+Route::get('cursos/create', [CursoController::class, 'create']);
+Route::get('cursos/{curso}', [CursoController::class, 'show']);
+
+// grupo
+Route::controller(CursoController::class)->Group(function () {
+    Route::get('cursos', 'index');
+    Route::get('cursos/create', 'create');
+    Route::get('cursos/{curso}', 'show');
+
+});
+
+--------------------------------------------------------------------------------
+
+# Migraciones
+
+# Crear una migración
+php artisan make:migration create_nombredelatabla_table
+
+# correr una migracion 
+php artisan migrate
+
+# deshacer la última migración
+php artisan migrate:rollback
+
+# borrar todas las tablas y vuelve a crearlas
+php artisan migrate:fresh
+
+# primero hace rollback y luego migra las tablas
+php artisasn migrate:refresh
+
+
+
+# Para modificar columnas debo agregar este paquete:
+composer require doctrine/dbal
+
+# borrar todo
+php artisan migrate:reset
+
+--------------------------------------------------------------------------------
+
+# Para agregar una columna en una tabla:
+
+php artisan make:migration add_nombredelacolumna_to_tablaacambiar_table 
+
+ej. php artisan make:migration add_avatar_to_users_table
+
+UP    
+$table->string('avatar')->nullable()->after('email');
+
+DOWN
+$table->dropColumn('avatar');
+
+--------------------------------------------------------------------------------
+
+# Cambiar propiedades de ua tabla
+cambiarpropiedades_to_users_table
+
+UP
+$table->string('name', 150)->change();
+// cambiar la cantidad de caracteres
+
+DOWN
+$table->string('name', 255)->change();
+// restablecer la cantidad de caracteres por defecto
+--------------------------------------------------------------------------------
+
+
+# crear un modelo
+php artisan make:model Nombre
+
+
+# Para cambiar singular y plural de los modelos, ejemplo:
+# tabla llamada: usuarios y modelo llamado: usuario
+# debemos poner en el modelo lo siguiente:
+
+protected $table = 'usuarios'
+
+
+--------------------------------------------------------------------------------
+
+# Usar Tinker (usar elocuent desde la consola)
+php artisan tinker
+
+# para salir:
+exit
+
+# Uso con un modelo
+
+use App\Models\Nombredelmodelo
+
+$variable = new Nombredelmodelo
+
+$variable->propiedad1(columna) = valor;
+
+$variable->propiedad2(columna) = valor;
+
+$variable->save();
+
+--------------------------------------------------------------------------------
+
+# crear un seeder:
+php artisan make:seeder NombreSeeder
+
+# ejecutar un NombreSeeder
+php artisan db:seed
+
+o
+
+php artisan migrate:fresh --seed
+
+--------------------------------------------------------------------------------
+
+# Crear factory
+php artisan make:factory NombreFactory
+
+--------------------------------------------------------------------------------
+
+# laravel en español
+
+composer require laraveles/spanish
+
+php artisan laraveles:install-lang
+
+config/app.php:
+
+// Ej: español
+'locale'          => 'es',
+// Ej: inglés
+'locale'          => 'en',
+
+--------------------------------------------------------------------------------
+
+Crear una tabla: crear un modelo con migración
+
+php artisan make: model Name -m
+
+--------------------------------------------------------------------------------
+
+Crear una tabla intermedia ej. Post y Tag
+php artisan make:migration create_post_tag_table
+
+--------------------------------------------------------------------------------
+
+para generar slug hay que importar el helper: Str
+
+use Illuminate\Support\Str;
+
+uso: 
+
+$name = $this->faker()->unique()->sentence();
+
+'name' => $name,
+'slug' => Str::slug($name),
+--------------------------------------------------------------------------------
+
+Agregar los componentes de Jetstring
+
+php artisan vendor:publish --tag=jetstream-views
+
+Uso:
+
+<x-jet-input type="text" placeholder="..." />
+
+--------------------------------------------------------------------------------
+
+
+Proyecto Blog
+
+1. Instalar el proyecto con Laravel y Jetstream.
+
+laravel new blog --Jet
+
+cd blog
+
+npm install
+npm run dev
+
+php artisan migrate
+
+2. Crear modelos con migraciones y generar las tablas
+
+php artisan make:model Category -m
+php artisan make:model Post -m
+php artisan make:model Tag -m
+
+
+3. Crear tabla intermedia entre posts y tags
+
+php artisan make:migration create_post_tag_table
+
+2. Crear modelo con migración y generar la tabla para las imágenes
+
+php artisan make:model Image -m
+
+3. Hacer relaciones a nivel de modelos
+
+4. Hacer los factory
+
+php artisan make:factory CategoryFactory
+php artisan make:factory PostFactory
+php artisan make:factory TagFactory  
+php artisan make:factory ImageFactory
+
+5. Crear un seeder para los usuarios
+
+php artisan make:seeder UserSeeder
+
+Uso: no olvidar importar los modelos a usar
+
+User::create([
+    'name' => 'Javier Peláez',
+    'email' => 'hjpelaezcasas@hotmail.com',
+    'password' => bcrypt('123456789'),
+]);
+        
+User::factory(99)->create();
+
+
+6. Crear un seeder para las post: con imágenes
+
+php artisan make:seeder PostsSeeder
+
+Uso: no olvidar importar los modelos a usar
+
+$posts = Post->factory(100)->create();
+        
+foreach ($posts as $post) {
+    Image::factory(1)->create([
+        'imageable_id' => $post->id,
+        'imageable_type' => Post::class,
+    ]);
+    $post->tags()->attach([
+        rand(1, 4),
+        rand(5, 8),
+    ]);
+};
+
+7. Conectar los seeders con el DatabaseSeeders.php
+
+USO:
+
+Storage::deleteDirectory('posts');
+Storage::makeDirectory('posts');
+
+// \App\Models\User::factory(10)->create();
+$this->call(UserSeeder::class);
+\App\Models\Category::factory(4)->create();
+\App\Models\Tag::factory(8)->create();
+$this->call(PostSeeder::class);
+
+8. Crear un menu con un componente de livewire:
+
+php artisan make:livewire navigation
+
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+Proyecto Livewirestore
+
+1. Creamos el proyecto con livewire:
+
+laravel new livewirestore --jet
+
+*****
+
+2. Ejecutamos las migraciones:
+
+php artisan migrate
+
+*****
+
+3. Creamos y rellenamos las migraciones con los campos necesarios:
+
+php artisan make:migration CreateCategoriesTable
+php artisan make:migration CreatePostsTable
+php artisan make:migration CreateTagsTable
+php artisan make:migration CreateTaggablesTable
+
+*****
+
+4. Creamos los componentes de livewire:
+
+php artisan make;livewire Dashboard/Category/Index
+php artisan make;livewire Dashboard/Category/save
+php artisan make;livewire Dashboard/Post/Index
+php artisan make;livewire Dashboard/Post/save
+php artisan make;livewire Dashboard/Tag/Index
+php artisan make;livewire Dashboard/Tag/save
+
+*****
+
+5. Configuramos las rutas:
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::group(['middleware' => ['auth:sanctum', 'verified'], 'prefix' => 'dashboard'], function () {
+    Route::get('/', function () {
+        return view('dashboard');
+    })->name('dashboard');
+    
+    // CRUDs
+    Route::group(['prefix' => 'category'], function () {
+        Route::get('/', App\Http\Livewire\Dashboard\Category\Index::class)->name('d-category-index'); // List
+        Route::get('/create', App\Http\Livewire\Dashboard\Category\Save::class)->name('d-category-create'); // Create
+        Route::get('/edit/{id}', App\Http\Livewire\Dashboard\Category\Save::class)->name('d-category-edit'); // Edit
+    
+    });
+
+});
+
+*****
+
+6. Creamos los modelos
+
+php artisan make:models Category
+php artisan make:models Post
+php artisan make:models Tag
+
+*****
+
+7. crear las categorías
+
+Vamos a trabajar con category/save
+
+- Save.php -> creamos las propiedades: title y description en el componente y creamos una función 'submit' para guardar los datos en la base de datos.
+- save.blade -> creamos un formulario en la vista.
+
+8. Actualizar los componentes como: label, input, button e input error
