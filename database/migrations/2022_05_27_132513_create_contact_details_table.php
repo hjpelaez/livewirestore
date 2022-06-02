@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('contact_details', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 255)->unique();
-            $table->string('slug', 260);
-            $table->string('image')->nullable();
-            $table->text('description')->nullable();
-            $table->timestamps();
+            $table->string('extra', 500);
+            $table->foreignId('contact_general_id')->onDelete('cascade');
         });
     }
 
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('contact_details');
     }
 };

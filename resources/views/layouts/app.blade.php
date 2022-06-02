@@ -17,7 +17,7 @@
 
     @livewireStyles
     @stack('css')
-    
+
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
@@ -42,10 +42,22 @@
             {{ $slot }}
         </main>
 
-    </div>
+        <div class="container mx-auto text-center">Made with
+            <g-emoji class="g-emoji w-33 h-32 animate-pulse" alias="heartbeat"
+                fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f493.png">
+                💓
+            </g-emoji>
+            by HJPelaez
+        </div>
 
-    @livewireScripts
-    @stack('js')
+
+
+
+
+
+
+        @livewireScripts
+        @stack('js')
 </body>
 
 </html>

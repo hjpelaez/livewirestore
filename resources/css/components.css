@@ -2,14 +2,38 @@ span[aria-current="page"] span {
     @apply bg-blue-700 text-white;
 }
 
-nav[role=navigation] button{
+nav[role="navigation"] button {
     @apply hover:bg-slate-100;
 }
 
-.search{
-    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-12  mx-2 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+.select {
+    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-12 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
 }
 
-.input{
-    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+.input {
+    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+}
+
+svg.foto {
+    fill: red !important;
+}
+
+.textarea {
+    @apply border-gray-300 focus:focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm;
+}
+
+svg.svg {
+    @apply fill-gray-400;
+}
+
+svg.pulgar {
+    @apply h-16 w-16 inline mx-6;
+}
+
+.step {
+    @apply inline-flex items-center justify-center w-1/2 py-3 font-medium leading-none tracking-wider border-b-2 sm:px-6 sm:w-auto sm:justify-start;
+}
+
+.step-active {
+    @apply text-indigo-500 bg-gray-200 border-indigo-500 rounded-t;
 }

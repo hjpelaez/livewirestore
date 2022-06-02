@@ -46,7 +46,7 @@ class Index extends Component
         return view('livewire.dashboard.category.index', compact('categories'));
 
     }
-    
+
     // Función para ordenar las búsquedas
     public function order($order)
     {
@@ -57,7 +57,7 @@ class Index extends Component
             } else {
                 $this->direction = 'desc';
             }
-        
+
         } else {
             $this->sort = $order;
             $this->direction = 'asc';
@@ -68,6 +68,7 @@ class Index extends Component
     public function delete(Category $category)
     {
         $category->delete();
-
+    
     }
+
 }

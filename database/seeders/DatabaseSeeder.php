@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,14 +14,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        // borra la carpeta para que se borren las imágenes antiguas
+        Storage::disk('public')->deleteDirectory('images');
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
         $this->call(UserSeeder::class);
-        \App\Models\Category::factory(100)->create();
+        \App\Models\Category::factory(50)->create();
 
     }
 }

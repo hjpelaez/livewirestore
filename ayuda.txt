@@ -387,3 +387,18 @@ Vamos a trabajar con category/save
 - save.blade -> creamos un formulario en la vista.
 
 8. Actualizar los componentes como: label, input, button e input error
+
+
+**********************************************
+
+git
+
+git add .
+git commit -m "CRUD Categorias"
+git push
+
+----
+
+git tag
+git tag -a v0.1 -m "CRUD Categorias"
+git push --tags

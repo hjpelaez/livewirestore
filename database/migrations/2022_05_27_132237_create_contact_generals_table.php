@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('contact_generals', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 255)->unique();
-            $table->string('slug', 260);
-            $table->string('image')->nullable();
-            $table->text('description')->nullable();
+            $table->string('subject', 255);
+            $table->text('message');
+            $table->enum('type', ['company', 'person']);
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('contact_generals');
     }
 };
